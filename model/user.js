@@ -1,6 +1,6 @@
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define("user", {
-    login: {
+    username: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {notEmpty: true}
@@ -17,6 +17,6 @@ module.exports = function(sequelize, DataTypes) {
     }
   }, {
     underscored: true,
-    indexes: [{unique: true, fields: ['login']}]
+    indexes: [{unique: true, fields: ['username']}]
   })
 }
