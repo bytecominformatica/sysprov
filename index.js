@@ -26,9 +26,25 @@ require('./app/routes.js')(app);
 //  });
 //})
 
-sequelize.import(__dirname + "/model/user")
+var User = sequelize.import(__dirname + "/model/user")
 //Project.sync({force: true})
-sequelize.sync({force: true});
+
+
+var user = User.sync({force : true}).then(function () {
+    return User.create({
+        login: 'clairton',
+        password: 'clairton'
+    });
+});
+
+
+
+app.get('/users', function (request, response) {
+    User.findOne({ where: {login: 'clairton'} }).then(function(user) {
+      response.send(user)
+    });
+});
+
 console.log('inicio ')
 app.listen(app.get('port'), function() {
   console.log('SysProv is running on port', app.get('port'));
