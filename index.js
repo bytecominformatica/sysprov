@@ -1,6 +1,7 @@
 var path = require('path')
 var express = require('express');
 var app = express();
+var Sequelize = require('sequelize');
 //var pg = require('pg');
 var sequelize = new Sequelize(process.env.DATABASE_URL);
 
@@ -25,7 +26,10 @@ require('./app/routes.js')(app);
 //  });
 //})
 
-
+sequelize.import(__dirname + "/model/user")
+//Project.sync({force: true})
+sequelize.sync({force: true});
+console.log('inicio ')
 app.listen(app.get('port'), function() {
   console.log('SysProv is running on port', app.get('port'));
 });
