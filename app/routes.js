@@ -3,7 +3,6 @@ var Sequelize = require('sequelize');
 var sequelize = new Sequelize(process.env.DATABASE_URL);
 
 module.exports = function(app) {
-
 	app.post('/login', function(req, res){
 	  var body = req.body;
       console.log(body)
@@ -16,8 +15,5 @@ module.exports = function(app) {
         else
             res.send('username or password invalid')
       });
-
-
     });
-
 };

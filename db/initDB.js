@@ -12,7 +12,7 @@ module.exports = function() {
           console.log("[SEQUELIZE] CREATING ENTITY " + model);
       });
 
-      sequelize.sync({/*force: true,*/ logging: null});
+      sequelize.sync({/*force: true, */logging: null});
 
     });
 }
