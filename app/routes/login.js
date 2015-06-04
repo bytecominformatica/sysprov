@@ -13,7 +13,7 @@ passport.deserializeUser(function(id, done) {
 
 passport.use(new LocalStrategy(
     function(username, password, done) {
-        User.findOne({ username: username }).then(function (user) {
+        User.findOne({where: { username: username }}).then(function (user) {
             if (!user) {
                 console.log('Incorrect username.');
                 return done(null, false, { message: 'Incorrect username.' });
@@ -29,7 +29,6 @@ passport.use(new LocalStrategy(
 );
 
 module.exports = function(app) {
-    User.create({username: 'teste', password: 'teste'})
     app.get('/logout',
         function (req, res) {
             req.logout();
