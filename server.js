@@ -1,20 +1,31 @@
 var express = require('express');
-var bodyparser = require('body-parser')
+var session = require('express-session')
+var bodyParser = require('body-parser')
+var cookieParser = require('cookie-parser')
+var session = require('cookie-session')
+var passport = require('passport')
 var app = express();
 
-var routes = require('./app/routes.js');
-var db = require('./db/initDB');
+/* CONFIGURE */
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(cookieParser());
+app.use(session({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(express.static('public'));
 
-app.use(express.static(__dirname + '/public'));
-app.use(bodyparser.urlencoded({extended: false}))
 
 // routes ======================================================================
+var routes = require('./app/routes/routes');
 routes(app);
 
 // create table of database ====================================================
+var db = require('./db/initDB');
 db();
-
-var User =  db.import('user').create({username: 'clairton', password: 'clairton'});
 
 app.listen(process.env.PORT, function() {
   console.log('SysProv is running on port', app.get('port'));
