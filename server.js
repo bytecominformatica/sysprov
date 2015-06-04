@@ -16,7 +16,6 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(express.static('public'));
 
 
 // routes ======================================================================
@@ -26,6 +25,8 @@ routes(app);
 // create table of database ====================================================
 var db = require('./db/initDB');
 db();
+
+app.use(express.static('public'));
 
 app.listen(process.env.PORT, function() {
   console.log('SysProv is running on port', app.get('port'));
