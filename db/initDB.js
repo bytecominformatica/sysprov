@@ -9,7 +9,7 @@ module.exports = function() {
 
       models.forEach(function(model){
           sequelize.import(model);
-          console.log("[SEQUELIZE] CREATING ENTITY " + model);
+          console.log("[SEQUELIZE] IF NOT EXIST CREATE ENTITY " + model);
       });
 
       sequelize.sync({/*force: true, */logging: null});
